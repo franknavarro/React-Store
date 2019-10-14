@@ -27,7 +27,7 @@ function Header() {
         {user && (
           <MenuItem
             href="/create"
-            icon="add squart"
+            icon="add square"
             size="large"
             text="Create"
           />
