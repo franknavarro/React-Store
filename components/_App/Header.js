@@ -1,5 +1,5 @@
-import { Menu, Container, Image, Icon } from 'semantic-ui-react';
-import Link from 'next/link';
+import { Menu, Container } from 'semantic-ui-react';
+import MenuItem from './MenuItem';
 
 function Header() {
   const user = false;
@@ -7,64 +7,41 @@ function Header() {
   return (
     <Menu fluid id="menu" inverted>
       <Container text>
-        <Link href="/">
-          <Menu.Item header>
-            <Image
-              size="mini"
-              src="/static/logo.svg"
-              style={{ marginRight: '1em' }}
-            />
-            React Reserve
-          </Menu.Item>
-        </Link>
+        <MenuItem
+          href="/"
+          src="/static/logo.svg"
+          size="mini"
+          style={{ marginRight: '1em' }}
+          text="React Reserve"
+        />
 
-        <Link href="/cart">
-          <Menu.Item header>
-            <Icon name="cart" size="large" />
-            Cart
-          </Menu.Item>
-        </Link>
+        <MenuItem href="/cart" icon="cart" size="large" text="Cart" />
 
         {user && (
-          <Link href="/create">
-            <Menu.Item header>
-              <Icon name="add square" size="large" />
-              Create
-            </Menu.Item>
-          </Link>
+          <MenuItem
+            href="/create"
+            icon="add squart"
+            size="large"
+            text="Create"
+          />
         )}
 
         {user ? (
           <>
-            <Link href="/account">
-              <Menu.Item header>
-                <Icon name="user" size="large" />
-                Account
-              </Menu.Item>
-            </Link>
+            <MenuItem href="/account" icon="user" size="large" text="Account" />
 
-            <Link href="/logout">
-              <Menu.Item header>
-                <Icon name="sign out" size="large" />
-                Logout
-              </Menu.Item>
-            </Link>
+            <MenuItem
+              href="/logout"
+              icon="sign out"
+              size="large"
+              text="Logout"
+            />
           </>
         ) : (
           <>
-            <Link href="/login">
-              <Menu.Item header>
-                <Icon name="sign in" size="large" />
-                Login
-              </Menu.Item>
-            </Link>
+            <MenuItem href="/login" icon="sign in" size="large" text="Login" />
 
-            <Link href="/signup">
-              <Menu.Item header>
-                <Icon name="signup" size="large" />
-                Signup
-              </Menu.Item>
-            </Link>
+            <MenuItem href="/signup" icon="signup" size="large" text="Signup" />
           </>
         )}
       </Container>
