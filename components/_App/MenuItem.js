@@ -6,7 +6,7 @@ const MenuItem = ({ href, icon, src, text, ...options }) => {
   const router = useRouter();
   const isActive = () => href === router.pathname;
 
-  const renderContent = () => {
+  const renderItem = () => {
     if (icon) {
       return <Icon name={icon} {...options} />;
     } else if (src) {
@@ -19,7 +19,7 @@ const MenuItem = ({ href, icon, src, text, ...options }) => {
   return (
     <Link href={href}>
       <Menu.Item header active={isActive()}>
-        {renderContent()}
+        {renderItem()}
         {text}
       </Menu.Item>
     </Link>
