@@ -7,6 +7,3 @@ services:
       - 3001:27017
     volumes:
       - ./dbdata:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=username
-      - MONGO_INITDB_ROOT_PASSWORD=password
