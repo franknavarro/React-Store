@@ -5,6 +5,7 @@
 [._]ss[a-gi-z]
 [._]sw[a-p]
 
+dbdata
 node_modules
 .next
 
