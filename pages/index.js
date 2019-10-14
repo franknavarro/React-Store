@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 
-function Home({ products }) {
-  console.log(products);
+import ProductList from '../components/Index/ProductList';
 
-  return <>home</>;
+function Home({ products }) {
+  return <ProductList products={products} />;
 }
 
 Home.getInitialProps = async () => {
