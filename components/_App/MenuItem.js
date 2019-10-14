@@ -16,14 +16,16 @@ const MenuItem = ({ href, icon, src, text, ...options }) => {
     return null;
   };
 
-  return (
-    <Link href={href}>
+  const renderMenuItem = () => {
+    return (
       <Menu.Item header active={isActive()}>
         {renderItem()}
         {text}
       </Menu.Item>
-    </Link>
-  );
+    );
+  };
+
+  return href ? <Link href={href}>{renderMenuItem()}</Link> : renderMenuItem();
 };
 
 export default MenuItem;

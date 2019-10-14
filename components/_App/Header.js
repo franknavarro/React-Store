@@ -2,7 +2,7 @@ import { Menu, Container } from 'semantic-ui-react';
 import MenuItem from './MenuItem';
 
 function Header() {
-  const user = false;
+  const user = true;
 
   return (
     <Menu fluid id="menu" inverted>
@@ -29,18 +29,11 @@ function Header() {
         {user ? (
           <>
             <MenuItem href="/account" icon="user" size="large" text="Account" />
-
-            <MenuItem
-              href="/logout"
-              icon="sign out"
-              size="large"
-              text="Logout"
-            />
+            <MenuItem icon="sign out" size="large" text="Logout" />
           </>
         ) : (
           <>
             <MenuItem href="/login" icon="sign in" size="large" text="Login" />
-
             <MenuItem href="/signup" icon="signup" size="large" text="Signup" />
           </>
         )}
