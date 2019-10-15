@@ -9,7 +9,7 @@ function ProductList({ products }) {
       color: 'teal',
       fluid: true,
       childKey: product._id,
-      href: `/product=?_id=${product._id}`,
+      href: `/product?_id=${product._id}`,
     }));
   };
 
