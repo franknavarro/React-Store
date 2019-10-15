@@ -1,7 +1,9 @@
 import { Button, Form, Icon, Message, Segment } from 'semantic-ui-react';
 import Link from 'next/link';
 
+import { handleLogin } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
+import axiosBase from '../utils/axiosBase';
 
 const INITIAL_USER = {
   email: '',
@@ -30,9 +32,10 @@ function Login() {
     try {
       setLoading(true);
       setError('');
-      console.log(user);
+      const response = await axiosBase.post('/login', { ...user });
+      handleLogin(response.data);
     } catch (err) {
-      catchErrors(err);
+      catchErrors(err, setError);
     } finally {
       setLoading(false);
     }
@@ -47,7 +50,8 @@ function Login() {
         content="Log in with email and password"
         color="blue"
       />
-      <Form loading={loading} onSubmit={handleSubmit}>
+      <Form error={Boolean(error)} loading={loading} onSubmit={handleSubmit}>
+        <Message error header="Oops!" content={error} />
         <Segment>
           <Form.Input
             fluid
