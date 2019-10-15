@@ -1,4 +1,5 @@
 import App from 'next/app';
+import Router from 'next/router';
 import { parseCookies, destroyCookie } from 'nookies';
 
 import Layout from '../components/_App/Layout';
@@ -41,7 +42,6 @@ class MyApp extends App {
       }
     };
 
-    console.log({ token });
     if (!token) {
       redirectProtected();
     } else {
@@ -63,6 +63,19 @@ class MyApp extends App {
     }
 
     return { pageProps };
+  }
+
+  syncLogout = event => {
+    if (event.key === 'logout') {
+      Router.push('/login');
+    }
+    if (event.key === 'login') {
+      Router.push('/account');
+    }
+  };
+
+  componentDidMount() {
+    window.addEventListener('storage', this.syncLogout);
   }
 
   render() {
