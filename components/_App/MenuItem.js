@@ -2,7 +2,7 @@ import { Menu, Image, Icon } from 'semantic-ui-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-const MenuItem = ({ href, icon, src, text, ...options }) => {
+const MenuItem = ({ callback, href, icon, src, text, ...options }) => {
   const router = useRouter();
   const isActive = () => href === router.pathname;
 
@@ -18,7 +18,7 @@ const MenuItem = ({ href, icon, src, text, ...options }) => {
 
   const renderMenuItem = () => {
     return (
-      <Menu.Item header active={isActive()}>
+      <Menu.Item header onClick={callback} active={isActive()}>
         {renderItem()}
         {text}
       </Menu.Item>

@@ -3,6 +3,7 @@ import Router from 'next/router';
 import NProgress from 'nprogress';
 
 import MenuItem from './MenuItem';
+import { handleLogout } from '../../utils/auth';
 
 Router.onRouteChangeStart = () => NProgress.start();
 Router.onRouteChangeComplete = () => NProgress.done();
@@ -36,7 +37,12 @@ function Header({ user }) {
         {user ? (
           <>
             <MenuItem href="/account" icon="user" size="large" text="Account" />
-            <MenuItem icon="sign out" size="large" text="Logout" />
+            <MenuItem
+              callback={handleLogout}
+              icon="sign out"
+              size="large"
+              text="Logout"
+            />
           </>
         ) : (
           <>
