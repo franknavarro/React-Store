@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from '../utils/axiosBase';
 
 import ProductList from '../components/Index/ProductList';
 
@@ -8,7 +8,7 @@ function Home({ products }) {
 }
 
 Home.getInitialProps = async () => {
-  const url = 'http://76.16.17.161:3000/api/products';
+  const url = '/products';
   const response = await axios.get(url);
   return { products: response.data };
 };
