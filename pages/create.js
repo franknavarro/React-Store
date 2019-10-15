@@ -46,6 +46,7 @@ function CreateProduct() {
   const handleSubmit = async event => {
     try {
       event.preventDefault();
+      setError('');
       setLoading(true);
       const mediaUrl = await handleImageUpload();
       const { name, price, description } = product;
