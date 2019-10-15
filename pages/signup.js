@@ -1,5 +1,7 @@
 import { Button, Form, Icon, Message, Segment } from 'semantic-ui-react';
 import Link from 'next/link';
+import isEmail from 'validator/lib/isEmail';
+import isLength from 'validator/lib/isLength';
 
 import { handleLogin } from '../utils/auth';
 import catchErrors from '../utils/catchErrors';
@@ -51,7 +53,8 @@ function Signup() {
         content="Create a new account"
         color="teal"
       />
-      <Form loading={loading} onSubmit={handleSubmit}>
+      <Form error={Boolean(error)} loading={loading} onSubmit={handleSubmit}>
+        <Message error header="Oops!" content={error} />
         <Segment>
           <Form.Input
             fluid
