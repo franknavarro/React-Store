@@ -2,11 +2,11 @@ import ProductSummary from '../components/Product/ProductSummary';
 import ProductAttributes from '../components/Product/ProductAttributes';
 import axios from '../utils/axiosBase';
 
-function Product({ product }) {
+function Product({ product, user }) {
   return (
     <>
       <ProductSummary {...product} />
-      <ProductAttributes {...product} />
+      <ProductAttributes {...product} user={user} />
     </>
   );
 }

@@ -8,8 +8,8 @@ Router.onRouteChangeStart = () => NProgress.start();
 Router.onRouteChangeComplete = () => NProgress.done();
 Router.onRouteChangeError = () => NProgress.done();
 
-function Header() {
-  const user = false;
+function Header({ user }) {
+  const isSuper = user && (user.role === 'admin' || user.role == 'root');
 
   return (
     <Menu stackable fluid id="menu" inverted>
@@ -24,7 +24,7 @@ function Header() {
 
         <MenuItem href="/cart" icon="cart" size="large" text="Cart" />
 
-        {user && (
+        {isSuper && (
           <MenuItem
             href="/create"
             icon="add square"
