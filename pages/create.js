@@ -8,6 +8,10 @@ import {
   Header,
   Icon,
 } from 'semantic-ui-react';
+import axios from 'axios';
+
+import axiosBase from '../utils/axiosBase';
+import catchErrors from '../utils/catchErrors';
 
 const INITIAL_PRODUCT = {
   name: '',
@@ -20,6 +24,14 @@ function CreateProduct() {
   const [product, setProduct] = React.useState(INITIAL_PRODUCT);
   const [mediaPreview, setMediaPreview] = React.useState('');
   const [success, setSuccess] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(true);
+  const [error, setError] = React.useState('');
+
+  React.useEffect(() => {
+    const isProduct = Object.values(product).every(el => Boolean(el));
+    isProduct ? setDisabled(false) : setDisabled(true);
+  }, [product]);
 
   const handleChange = event => {
     const { name, value, files } = event.target;
@@ -31,11 +43,34 @@ function CreateProduct() {
     }
   };
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    console.log(product);
-    setProduct(INITIAL_PRODUCT);
-    setSuccess(true);
+  const handleSubmit = async event => {
+    try {
+      event.preventDefault();
+      setLoading(true);
+      const mediaUrl = await handleImageUpload();
+      const { name, price, description } = product;
+      const response = await axiosBase.post('/product', {
+        name,
+        price,
+        description,
+        mediaUrl,
+      });
+      setProduct(INITIAL_PRODUCT);
+      setSuccess(true);
+    } catch (err) {
+      catchErrors(err, setError);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleImageUpload = async event => {
+    const data = new FormData();
+    data.append('file', product.media);
+    data.append('upload_preset', 'reactreserve');
+    data.append('cloud_name', 'dwjbjupgm');
+    const response = await axios.post(process.env.CLOUDINARY_URL, data);
+    return response.data.url;
   };
 
   return (
@@ -44,7 +79,13 @@ function CreateProduct() {
         <Icon name="add" color="orange" />
         Create New Product
       </Header>
-      <Form success={success} onSubmit={handleSubmit}>
+      <Form
+        loading={loading}
+        error={Boolean(error)}
+        success={success}
+        onSubmit={handleSubmit}
+      >
+        <Message error header="Oops!" content={error} />
         <Message
           success
           icon="check"
@@ -92,6 +133,7 @@ function CreateProduct() {
         />
         <Form.Field
           control={Button}
+          disabled={loading || disabled}
           color="blue"
           icon="pencil alternate"
           content="Submit"
