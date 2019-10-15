@@ -5,6 +5,7 @@ import Layout from '../components/_App/Layout';
 import { redirectUser } from '../utils/auth';
 import axiosBase from '../utils/axiosBase';
 
+const LOGIN_ROUTES = ['/login', '/signup'];
 const SUPER_PROTECTED_ROUTES = ['/create'];
 const PROTECTED_ROUTES = ['/account', ...SUPER_PROTECTED_ROUTES];
 
@@ -18,21 +19,29 @@ class MyApp extends App {
       pageProps = await Component.getInitialProps(ctx);
     }
 
-    const redirectProtected = permissions => {
+    const redirectProtected = user => {
       const { pathname } = ctx;
       const isProtectedRoute = PROTECTED_ROUTES.includes(pathname);
-      if (!permissions && isProtectedRoute) {
+      if (isProtectedRoute && !user) {
         return redirectUser(ctx, '/login');
+      } else if (!user) {
+        return;
       }
 
       const isSuperRoute = SUPER_PROTECTED_ROUTES.includes(pathname);
-      const isAdmin = permissions === 'admin';
-      const isRoot = permissions === 'root';
+      const isAdmin = user.role === 'admin';
+      const isRoot = user.role === 'root';
       if (isSuperRoute && !isAdmin && !isRoot) {
         return redirectUser(ctx, '/');
       }
+
+      console.log({ user, pathname });
+      if (user && LOGIN_ROUTES.includes(pathname)) {
+        redirectUser(ctx, '/account');
+      }
     };
 
+    console.log({ token });
     if (!token) {
       redirectProtected();
     } else {
@@ -40,8 +49,9 @@ class MyApp extends App {
         const response = await axiosBase.get('/account', {
           headers: { Authorization: token },
         });
+        console.log;
         const user = response.data;
-        redirectProtected(user.role);
+        redirectProtected(user);
         pageProps.user = user;
       } catch (err) {
         console.error('Error getting current user', err);
