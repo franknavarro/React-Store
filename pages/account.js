@@ -9,7 +9,7 @@ const Account = ({ user, orders }) => {
   return (
     <>
       <AccountHeader {...user} />
-      <AccountOrders {...orders} />
+      <AccountOrders orders={orders} />
     </>
   );
 };
