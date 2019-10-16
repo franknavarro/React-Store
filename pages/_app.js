@@ -36,7 +36,6 @@ class MyApp extends App {
         return redirectUser(ctx, '/');
       }
 
-      console.log({ user, pathname });
       if (user && LOGIN_ROUTES.includes(pathname)) {
         redirectUser(ctx, '/account');
       }
@@ -49,7 +48,6 @@ class MyApp extends App {
         const response = await axiosBase.get('/account', {
           headers: { Authorization: token },
         });
-        console.log;
         const user = response.data;
         redirectProtected(user);
         pageProps.user = user;

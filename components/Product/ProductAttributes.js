@@ -8,7 +8,6 @@ function ProductAttributes({ description, _id, user }) {
   const router = useRouter();
 
   const isSuper = user && (user.role === 'admin' || user.role === 'root');
-  console.log(user);
 
   const handleDelete = async () => {
     const url = '/product';
