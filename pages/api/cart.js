@@ -4,6 +4,10 @@ import jwt from 'jsonwebtoken';
 import connectDb from '../../utils/connectDb';
 import Cart from '../../models/Cart';
 
+// Even though we don't use Product as a var we need it to initialize
+// Product model when we populate the cart
+import Product from '../../models/Product';
+
 connectDb();
 
 const { ObjectId } = mongoose.Types;
