@@ -1,8 +1,6 @@
 import { Header, Segment, Button, Icon } from 'semantic-ui-react';
 
-function CartItemList() {
-  const user = false;
-
+function CartItemList({ user }) {
   const renderUserButton = () => {
     if (user) {
       return <Button color="orange">View Products</Button>;

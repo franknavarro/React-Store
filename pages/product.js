@@ -5,7 +5,7 @@ import axios from '../utils/axiosBase';
 function Product({ product, user }) {
   return (
     <>
-      <ProductSummary {...product} />
+      <ProductSummary {...product} user={user} />
       <ProductAttributes {...product} user={user} />
     </>
   );
