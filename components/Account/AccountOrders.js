@@ -14,9 +14,9 @@ const AccountOrders = ({ orders }) => {
   const router = useRouter();
 
   const mapOrderProducts = products => {
-    return products.map(p => (
+    return products.map((p, index) => (
       <>
-        <List.Item>
+        <List.Item key={index}>
           <Image avatar src={p.product.mediaUrl} />
           <List.Content>
             <List.Header>{p.product.name}</List.Header>
