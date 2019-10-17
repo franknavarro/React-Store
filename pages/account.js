@@ -3,13 +3,14 @@ import { parseCookies } from 'nookies';
 import axiosBase from '../utils/axiosBase';
 import AccountHeader from '../components/Account/AccountHeader';
 import AccountOrders from '../components/Account/AccountOrders';
+import AccountPermissions from '../components/Account/AccountPermissions';
 
 const Account = ({ user, orders }) => {
-  console.log({ orders });
   return (
     <>
       <AccountHeader {...user} />
       <AccountOrders orders={orders} />
+      {user.role === 'root' && <AccountPermissions currentUserId={user._id} />}
     </>
   );
 };
