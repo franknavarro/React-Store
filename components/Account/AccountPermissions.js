@@ -4,18 +4,16 @@ import cookie from 'js-cookie';
 import axiosBase from '../../utils/axiosBase';
 import UserPermission from './UserPermission';
 
-const AccountPermissions = ({ currentUserId }) => {
+const AccountPermissions = () => {
   const [users, setUsers] = React.useState([]);
 
   React.useEffect(() => {
     getUsers();
   }, []);
-  console.log({ users });
 
   const getUsers = async () => {
     const payload = { headers: { Authorization: cookie.get('token') } };
     const response = await axiosBase.get('/users', payload);
-    console.log(response.data);
     setUsers(response.data);
   };
 
