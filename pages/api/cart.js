@@ -62,7 +62,6 @@ const handlePutRequest = async (req, res) => {
     // Get user cart based on userId
     const cart = await Cart.findOne({ user: userId });
     // Check if product already exists in cart
-    console.log({ cart });
     const productExists = cart.products.some(doc =>
       ObjectId(productId).equals(doc.product),
     );
